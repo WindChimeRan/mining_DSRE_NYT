@@ -54,7 +54,8 @@ Some of the relations should probably be merged. For example
 
 [^_^]: # (TODO draw a graph)
 
-<img src="img/relation_overview.png" width = '800' div align=right />
+
+<img src="img/relation_overview.png" width = '800' div align=left />
 
 
 
