@@ -42,7 +42,7 @@ They are:
 
 Of all the relations, **"NA"** takes **79%**.
 
-Of all the valid relations (remove "NA"), **/location/location/contains ** takes **48%**.
+Of all the valid relations (remove "NA"), **/location/location/contains** takes **48%**.
 
 For other relations, see Figure "The ten most relations".
 
@@ -55,7 +55,7 @@ Some of the relations should probably be merged. For example
 [^_^]: # (TODO draw a graph)
 
 
-<img src="img/relation_overview.png" width = '800' div align=left />
+<img src="img/relation_overview.png" width = '1000' div align=left />
 
 
 
