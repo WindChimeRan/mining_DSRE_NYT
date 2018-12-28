@@ -27,22 +27,37 @@ Data format:
 Each dict in the list is an instance.
 
 Note that one entity mention may contain many entity types. That's very interesting.
-## Relation labels
 
-NYT contains 58 relation labels, 53 labels in trai set and 5 labels are exclusive in test set.
+## Relation
+
+NYT contains 58 relations. 53 relations are in train set and 5 relations are exclusive in test set.
 
 They are:
 
->>> * /business/company/industry
->>> * business/company_shareholder/major_shareholder_of
->>> * /sports/sports_team_location/teams
->>> * /people/ethnicity/includes_groups
->>> * /people/ethnicity/people
+> * /business/company/industry
+> * business/company_shareholder/major_shareholder_of
+> * /sports/sports_team_location/teams
+> * /people/ethnicity/includes_groups
+> * /people/ethnicity/people
+
+Of all the relations, **"NA"** takes **79%**.
+
+Of all the valid relations (remove "NA"), **/location/location/contains ** takes **48%**.
+
+For other relations, see Figure "The ten most relations".
+
+Some of the relations should probably be merged. For example
+> * ['/business/company_advisor/companies_advised', '/business/company/advisors']
+> * ['/location/us_state/capital', '/location/cn_province/capital']
+> * ...
+
+
 
 [^_^]: # (TODO draw a graph)
 
 <img src="img/relation_overview.png" width = '800' div align=right />
 
 
-##
+## Entity Types
 
+One entity may have plenty of types. And the types are linked to relations!
