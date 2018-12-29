@@ -2,6 +2,10 @@
 
 ## Overview
 
+NYT_large is a prevalent data set in Distant Supervision Relation Extraction (DSRE).
+
+The data is given by [OpenNRE](https://github.com/thunlp/OpenNRE#provided-data)
+
 Data format:
 
 ```
@@ -91,6 +95,10 @@ The reallocated (or normalized) entity types shows below. Half of the relations 
 
 <img src="img/Normalized_entity_types.png" width = '1000' div align=left />
 
+## Code Explanation
 
-## Bag
+The data processing code is written by Python. The visualization code is in R (ggplot2)
 
+data_stats.py is type-checked by **mypy**.
+
+I hope at least the Python code is editable. If you want to do some magic based on my code. First change the _root_path_.
