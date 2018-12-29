@@ -7,7 +7,7 @@ library(gridExtra)
 ggthemr::ggthemr('sky')
 
 
-plot_dual <- function(file_path, fig_title){
+plot_entity_cnt <- function(file_path, fig_title){
   type_counter <- fromJSON(file = file_path)
   
   x <- names(type_counter)
@@ -28,8 +28,11 @@ plot_dual <- function(file_path, fig_title){
     # scale_y_log10() +
     labs(x = "Count", y = "Relations", title = fig_title,colour = "CUT")
   p1
-  }
-p1 <- plot_dual("rel_entity_type.json", "Different entity types in each relation")
-p2 <- plot_dual("imba_set_count_path.json", "Imbalanced entity types")
+}
+
+p1 <- plot_entity_cnt("rel_entity_type.json", "Different entity types in each relation")
+p2 <- plot_entity_cnt("imba_set_count_path.json", "Imbalanced entity types")
 entity_types <- grid.arrange(p1, p2, ncol=2)
+normalized_entity_types <- plot_entity_cnt("one_entity_stats.json", "Most normalized types")
 ggsave(entity_types, filename = 'Entities_in_rels.png', dpi=600, width = 25.8/3*2, height = 14.2/3*2)
+ggsave(normalized_entity_types, filename = 'Normalized_entity_types.png', dpi=600, width = 25.8/3*2, height = 14.2/3*2)
