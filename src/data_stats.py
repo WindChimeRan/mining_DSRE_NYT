@@ -55,6 +55,31 @@ def pass1(path: List[str]) -> Tuple[Dict[str, int], Set[str], Dict[str, Dict[str
     return relation_counter, shared_entity_type, relation_entity_type
 
 
+def entity_type_count2set_type(relation_entity_type: Dict[str, Dict[str, typing.Counter[str]]])\
+        -> Tuple[Dict[str, Dict[str, int]], Dict[str, Dict[str, int]]]:
+    """
+    After pass1, turn {'relation': {'head':Counter({'person':2...}), 'tail'...}} to
+    {'relation': {'head':len(set(Counter))}}
+    :param relation_entity_type: relation_entity_type
+    :return: all_set_type, imbalanced_set_type
+    {'relation': {'head':len(set(Counter))}}, {'relation': {'head':len(set(Counter))}}
+    """
+    set_type: Dict[str, Dict[str, int]] = {k: {'head': 0, 'tail': 0} for k in relation_entity_type}
+    imbalanced_set_type: Dict[str, Dict[str, int]] = {k: {'head': 0, 'tail': 0} for k in relation_entity_type}
+    for r in relation_entity_type:
+        head = len(relation_entity_type[r]['head'].keys())
+        tail = len(relation_entity_type[r]['tail'].keys())
+        set_type[r]['head'] = head
+        set_type[r]['tail'] = tail
+        if head / tail < 0.2 or head / tail > 5 or head == 1 or tail == 1:
+            imbalanced_set_type[r]['head'] = head
+            imbalanced_set_type[r]['tail'] = tail
+    for r in list(imbalanced_set_type.keys()):
+        if imbalanced_set_type[r]['head'] == imbalanced_set_type[r]['tail'] == 0:
+            imbalanced_set_type.pop(r)
+    return set_type, imbalanced_set_type
+
+
 def rel2id(path: str) -> Dict[str, int]:
     """
     Return the rel2id dict.
@@ -137,7 +162,7 @@ def pass2(paths: List[str]) -> Dict[str, Dict[str, typing.Counter[str]]]:
 
 
 if __name__ == '__main__':
-    root_path = './nyt'
+    root_path = '../nyt'
     train_path = os.path.join(root_path, 'train.json')
     test_path = os.path.join(root_path, 'test.json')
 
@@ -146,6 +171,9 @@ if __name__ == '__main__':
 
     rel_counter_path = os.path.join(root_path, 'rel_counter.json')
     out_pass2_stats_path = os.path.join(root_path, 'one_entity_stats.json')
+
+    rel_entity_type_path = os.path.join(root_path, 'rel_entity_type.json')
+    imba_set_count_path = os.path.join(root_path, 'imba_set_count_path.json')
     # paths
 
     rel_counter, shared_t, rel_entity_type = pass1([train_path, test_path])
@@ -154,6 +182,10 @@ if __name__ == '__main__':
     print('relation(train | test) - relation(train): ', set(rel_counter.keys()) - set(rel_train.keys()))
     print('shared_types: ', shared_t)
     rel_entity_type = remove_shared_types(rel_entity_type, shared_t)
+
+    entity_set_count, imba_set_count = entity_type_count2set_type(rel_entity_type)
+    json.dump(entity_set_count, open(rel_entity_type_path, 'w'))
+    json.dump(imba_set_count, open(imba_set_count_path, 'w'))
 
     train_one_type = generate_one_type([train_path], rel_entity_type)
     test_one_type = generate_one_type([test_path], rel_entity_type)
