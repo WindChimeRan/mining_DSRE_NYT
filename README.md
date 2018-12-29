@@ -30,7 +30,7 @@ Note that one entity mention may contain many entity types. That's very interest
 
 ## Relation
 
-NYT contains 58 relations. 53 relations are in train set and 5 relations are exclusive in test set.
+NYT is highly imbalanced. It contains 58 relations. 53 relations are in train set and 5 relations are exclusive in test set.
 
 They are:
 
@@ -63,3 +63,31 @@ Some of the relations should probably be merged. For example
 ## Entity Types
 
 One entity may have plenty of types. And the types are linked to relations!
+
+Every entity share the same type: **/common/topic**, so I remove it before further analysis.
+
+The figure also shows imbalanced entity types by the filter:
+
+` head / tail < 0.2 or head / tail > 5 or head == 1 or tail == 1 `
+
+They are:
+
+> * /people/person/ethnicity
+> * /people/ethnicity/geographic_distribution
+> * /time/event/locations
+> * /broadcast/content/location
+> * /film/film_festival/location
+> * /people/family/members
+> * /people/family/country
+> * /location/country/languages_spoken
+
+<img src="img/Entities_in_rels.png" width = '1000' div align=left />
+
+After removing **/common/topic**, I reallocate each entity to most common type.
+
+To be specific, I first count how many entity type for each relations as the figure above. Then, for each instance, we can find the most common head and most common tail.
+
+
+
+## Bag
+
