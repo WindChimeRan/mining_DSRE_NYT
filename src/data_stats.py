@@ -161,6 +161,21 @@ def pass2(paths: List[str]) -> Dict[str, Dict[str, typing.Counter[str]]]:
     return relation_entity_type
 
 
+def reverse_entity_relation(out_pass2_stats: Dict[str, Dict[str, typing.Counter[str]]]) -> Dict[str, Dict[str, int]]:
+    reverse_rel: Dict[str, Dict[str, int]] = {}
+
+    for r in out_pass2_stats:
+        head = out_pass2_stats[r]['head'].keys()
+        tail = out_pass2_stats[r]['tail'].keys()
+        for h in head:
+            reverse_rel.setdefault(h, {'head': 0, 'tail': 0})
+            reverse_rel[h]['head'] += 1
+        for t in tail:
+            reverse_rel.setdefault(t, {'head': 0, 'tail': 0})
+            reverse_rel[t]['tail'] += 1
+    return reverse_rel
+
+
 if __name__ == '__main__':
     root_path = '../nyt'
     train_path = os.path.join(root_path, 'train.json')
@@ -174,6 +189,8 @@ if __name__ == '__main__':
 
     rel_entity_type_path = os.path.join(root_path, 'rel_entity_type.json')
     imba_set_count_path = os.path.join(root_path, 'imba_set_count_path.json')
+
+    reverse_problem_path = os.path.join(root_path, 'reverse_problem.json')
     # paths
 
     rel_counter, shared_t, rel_entity_type = pass1([train_path, test_path])
@@ -197,8 +214,14 @@ if __name__ == '__main__':
 
     pass2_rel_entity_type = pass2([train_one_type_path, train_one_type_path])
 
-    pass2_rel_entity_cnt, _ = entity_type_count2set_type(pass2_rel_entity_type)
+    # pass2_rel_entity_cnt, _ = entity_type_count2set_type(pass2_rel_entity_type)
 
-    json.dump(pass2_rel_entity_cnt, open(out_pass2_stats_path, 'w'))
+    json.dump(pass2_rel_entity_type, open(out_pass2_stats_path, 'w'))
+
+    reverse_problem = reverse_entity_relation(pass2_rel_entity_type)
+    print('after 1 most normalization, there are %d entity types' % len(reverse_problem))
+
+    json.dump(reverse_problem, open(reverse_problem_path, 'w'))
+
 
 

@@ -95,6 +95,14 @@ The reallocated (or normalized) entity types shows below. Half of the relations 
 
 <img src="img/Normalized_entity_types.png" width = '1000' div align=left />
 
+## Reverse Problem
+
+Now, for each entity type, how many relations does it link to?
+
+There are 91 entity types after normalization:
+
+<img src="img/reverse_problem.png" width = '1000' div align=left />
+
 ## Code Explanation
 
 The data processing code is written by Python. The visualization code is in R (ggplot2)
