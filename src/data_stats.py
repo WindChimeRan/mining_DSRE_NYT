@@ -131,9 +131,12 @@ def generate_one_type(path: List[str],  relation_entity_type: Dict[str, Dict[str
         head_one = Counter({k: head[k] for k in set(ins['head']['type'].split(','))})
         tail_one = Counter({k: tail[k] for k in set(ins['tail']['type'].split(','))})
 
-        ins['head']['type'] = head_one.most_common(1)[0][0]
-        ins['tail']['type'] = tail_one.most_common(1)[0][0]
+        # ins['head']['type'] = head_one.most_common(1)[0][0]
+        # ins['tail']['type'] = tail_one.most_common(1)[0][0]
 
+        ins['head']['type'] = sorted(sorted(head_one), key=head_one.get, reverse=True)[0]
+        ins['tail']['type'] = sorted(sorted(tail_one), key=tail_one.get, reverse=True)[0]
+        
         one.append(ins)
 
     return one
@@ -213,7 +216,8 @@ if __name__ == '__main__':
     json.dump(test_one_type, open(test_one_type_path, 'w'))
 
     pass2_rel_entity_type = pass2([train_one_type_path, test_one_type_path])
-
+    pass2_rel_entity_type_train = pass2([train_one_type_path])
+    print('diff types:\n', set(reverse_entity_relation(pass2_rel_entity_type))-set(reverse_entity_relation(pass2_rel_entity_type_train)))
     # pass2_rel_entity_cnt, _ = entity_type_count2set_type(pass2_rel_entity_type)
 
     json.dump(pass2_rel_entity_type, open(out_pass2_stats_path, 'w'))

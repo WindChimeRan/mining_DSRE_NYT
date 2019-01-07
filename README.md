@@ -99,7 +99,23 @@ The reallocated (or normalized) entity types shows below. Half of the relations 
 
 Now, for each entity type, how many relations does it link to?
 
-There are 99 entity types after normalization, 91 in train set:
+There are 108 entity types after normalization, 15 of them are in the different set of train set and test set:
+
+> * /location/statistical_region
+> * /music/composition
+> * /media_common/quotation_subject
+> * /base/vancouver2010/topic
+> * /base/disneyana/topic
+> * /base/airtrafficmanagement/topic
+> * /people/family_member
+> * /base/givennames/topic
+> * /base/summermovies2009/topic
+> * /base/london/topic
+> * /base/filmnoir/topic
+> * /base/aliens/topic
+> * /film/film_screening_venue
+> * /fictional_universe/ethnicity_in_fiction
+> * /business/shopping_center
 
 <img src="img/reverse_problem.png" width = '1000' div align=left />
 
