@@ -119,6 +119,12 @@ There are 108 entity types after normalization, 15 of them are in the different 
 
 <img src="img/reverse_problem.png" width = '1000' div align=left />
 
+## Extended Reading
+
+This paper may help you know more about NYT dataset and existing DSRE experiments. 
+
+[Revisiting Distant Supervision for Relation Extraction](http://www.lrec-conf.org/proceedings/lrec2018/pdf/414.pdf)
+
 ## Code Explanation
 
 The data processing code is written by Python. The visualization code is in R (ggplot2)
