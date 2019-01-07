@@ -212,7 +212,7 @@ if __name__ == '__main__':
     json.dump(train_one_type, open(train_one_type_path, 'w'))
     json.dump(test_one_type, open(test_one_type_path, 'w'))
 
-    pass2_rel_entity_type = pass2([train_one_type_path, train_one_type_path])
+    pass2_rel_entity_type = pass2([train_one_type_path, test_one_type_path])
 
     # pass2_rel_entity_cnt, _ = entity_type_count2set_type(pass2_rel_entity_type)
 
